@@ -3,17 +3,14 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const uuid = require("uuid");
-
+const bodyParser = require('body-parser');
 const keys = require("../config/default.json");
-
 const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
 
-
-// Load User model
 const User = require("../models/User");
-const bodyParser = require('body-parser');
-// create application/json parser
+
+
 const jsonParser = bodyParser.json();
 
 

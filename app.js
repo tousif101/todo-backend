@@ -14,7 +14,7 @@ app.use(
 );
 
 app.use(bodyParser.json());
-connectDB().then(r => console.log(r));
+connectDB()
 
 app.use(passport.initialize()); //initialize passport
 require("./config/passport")(passport); //passport configs
