@@ -9,8 +9,6 @@ const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
 
 const User = require("../models/User");
-
-
 const jsonParser = bodyParser.json();
 
 
@@ -20,10 +18,11 @@ const jsonParser = bodyParser.json();
 router.post("/register",jsonParser, (req, res) => {
     // Form validation
     const { errors, isValid } = validateRegisterInput(req.body);
-// Check validation
+
     if (!isValid) {
         return res.status(400).json(errors);
     }
+    console.log("Inside Register")
     User.findOne({ email: req.body.email }).then(user => {
         if (user) {
             return res.status(400).json({ email: "Email already exists" });
@@ -33,7 +32,7 @@ router.post("/register",jsonParser, (req, res) => {
                 email: req.body.email,
                 password: req.body.password
             });
-// Hash password before saving in database
+            // Hash password before saving in database
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
                     if (err) throw err;
